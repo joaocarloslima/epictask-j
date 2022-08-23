@@ -18,10 +18,18 @@ public class TestConfiguration implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
        
-        Task task1 = new Task("BD", "modelar o banco");
-        Task task2 = new Task("Prototipo", "prototipar as telas");
+        repository.saveAll(List.of(
+            new Task("BD", "modelar o banco"), 
+            new Task("Prototipo", "prototipar as telas"),
+            new Task("Bug", "prototipar as telas"),
+            new Task("Nova funcionalidade", "prototipar as telas"),
+            new Task("Testes", "prototipar as telas"),
+            new Task("Deploy", "prototipar as telas"),
+            new Task("Login", "prototipar as telas"),
+            new Task("Logout", "prototipar as telas"),
+            new Task("Outro bug", "prototipar as telas")
 
-        repository.saveAll(List.of(task1, task2));        
+        ));        
     }
     
 }

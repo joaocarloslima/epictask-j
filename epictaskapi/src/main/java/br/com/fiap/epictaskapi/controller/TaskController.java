@@ -7,6 +7,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.epictaskapi.model.Task;
@@ -24,13 +32,15 @@ import br.com.fiap.epictaskapi.service.TaskService;
 @RestController
 @RequestMapping("/api/task")
 public class TaskController {
+    // o ideal é configurar o cache para trabalhar com Redis
 
     @Autowired
     private TaskService service;
-    
+
     @GetMapping
-    public List<Task> index(){
-        return service.listAll();
+    @Cacheable("tasks")
+    public Page<Task> index(@PageableDefault(size=5, sort = "title") Pageable paginacao){
+        return service.listAll(paginacao);
     }
 
     @PostMapping
@@ -45,6 +55,7 @@ public class TaskController {
     }
 
     @DeleteMapping("{id}")
+    @CacheEvict(value = "tasks", allEntries = true)
     public ResponseEntity<Object> destroy(@PathVariable Long id){
         Optional<Task> optional = service.get(id);
 
