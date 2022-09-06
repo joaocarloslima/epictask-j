@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.epictaskapi.model.Task;
 import br.com.fiap.epictaskapi.model.User;
@@ -12,6 +15,7 @@ import br.com.fiap.epictaskapi.repository.TaskRepository;
 import br.com.fiap.epictaskapi.repository.UserRepository;
 
 @Configuration
+@Profile("dev")
 public class TestConfiguration implements CommandLineRunner {
 
     @Autowired
@@ -19,6 +23,9 @@ public class TestConfiguration implements CommandLineRunner {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -37,7 +44,10 @@ public class TestConfiguration implements CommandLineRunner {
         ));        
 
         userRepository.save(
-            new User("João", "joao@fiap.com.br", "$2a$12$fJRy5k93hXvZbgFvXS0eN.FjZ5ykqjYHIhuNDTr62C/Pj10y6eorG")
+            new User(
+                "João", 
+                "joao@fiap.com.br", 
+                passwordEncoder.encode("123"))
         );
     }
     
