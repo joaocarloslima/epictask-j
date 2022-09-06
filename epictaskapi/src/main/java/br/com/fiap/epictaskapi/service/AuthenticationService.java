@@ -23,7 +23,7 @@ public class AuthenticationService implements UserDetailsService {
 
         if(optional.isPresent()) return optional.get();
 
-        throw new UsernameNotFoundException("username notfound " + username);
+        throw new UsernameNotFoundException("username not found " + username);
     }
     
 }
