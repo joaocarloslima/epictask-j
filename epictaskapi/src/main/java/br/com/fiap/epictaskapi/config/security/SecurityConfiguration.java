@@ -42,12 +42,12 @@ public class SecurityConfiguration {
                 //h2
                 .antMatchers("/h2-console/**").permitAll()
 
-                .anyRequest().denyAll()
+                .anyRequest().permitAll()
             .and()
                 .csrf().disable()
                 .headers().frameOptions().disable()
             .and()
-                .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
             ;
         return http.build();
     }
