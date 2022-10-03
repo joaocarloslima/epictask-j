@@ -30,7 +30,7 @@ public class TestConfiguration implements CommandLineRunner {
     public void run(String... args) throws Exception {
        
         taskRepository.saveAll(List.of(
-            new Task("BD", "modelar o banco"), 
+            new Task("BD", "modelar o banco", 20, 25), 
             new Task("Prototipo", "prototipar as telas"),
             new Task("Bug", "prototipar as telas"),
             new Task("Nova funcionalidade", "prototipar as telas"),

@@ -28,6 +28,16 @@ public class Task {
         this.description = description;
     }
 
+    
+
+    public Task(@NotBlank String title, @Size(min = 10, message = "melhore essa descrição") String description,
+            int score, int status) {
+        this.title = title;
+        this.description = description;
+        this.score = score;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }
