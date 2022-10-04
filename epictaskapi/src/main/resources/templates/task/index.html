@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt_BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,10 @@
 
     <div class="toolbar">
         <a class="button" href="/task/new">cadastrar tarefa</a>
+    </div>
+
+    <div th:if="${message != null}" class="alert success">
+        <span th:text="${message}"></span>
     </div>
 
     <main class="cards">
@@ -29,6 +33,11 @@
             <div class="score">
                 <span class="material-icons">star</span>
                 <span th:text="${task.score + 'pts'}"></span>
+            </div>
+            <div class="actions">
+                <a th:href="${'/task/delete/' + task.id}">   
+                    <span class="material-icons">delete</span>
+                </a>
             </div>
         </div>
     </main>

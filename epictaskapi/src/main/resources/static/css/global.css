@@ -65,12 +65,20 @@ a{
     padding: .5rem 1rem;
     border: none;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .button.cancel {
     background: var(--bg);
     box-shadow: none;
+    font-weight: normal;
     color: var(--text-color);
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cards{
@@ -194,7 +202,24 @@ textarea{
     max-height: 12rem;
 }
 
+.invalid{
+    border: solid 1px var(--primary) !important;
+}
+
 #labelscore{
     margin: 1rem 0;
     font-size: 1rem;
+}
+
+.alert {
+    max-width: 350px;
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.alert.success{
+    background-color: #2ecc71;
+    color: var(--bg);
+
 }
