@@ -8,10 +8,22 @@
     <title>Epic Task</title>
 </head>
 <body>
-    <h1>Epic Task</h1>
+    <header class="header">
+        <h1>Epic Task</h1>
+
+        <div>
+            <!--span sec:authentication="name"></!--span-->
+            <span th:text="${#authentication.name}"></span>
+            <a href="/logout">
+                <span class="material-icons">logout</span>
+            </a>
+        </div>
+    </header>
+
+    <nav th:replace="_template :: menu('task')"></nav>
 
     <div class="toolbar">
-        <a class="button" href="/task/new">cadastrar tarefa</a>
+        <a class="button" href="/task/new" sec:authorize-url="POST /task">cadastrar tarefa</a>
     </div>
 
     <div th:if="${message != null}" class="alert success">
@@ -35,8 +47,11 @@
                 <span th:text="${task.score + 'pts'}"></span>
             </div>
             <div class="actions">
-                <a th:href="${'/task/delete/' + task.id}">   
+                <a th:href="${'/task/delete/' + task.id}" sec:authorize="hasRole('ADMIN')">   
                     <span class="material-icons">delete</span>
+                </a>
+                <a th:href="${'/task/' + task.id}">   
+                    <span class="material-icons">edit</span>
                 </a>
             </div>
         </div>

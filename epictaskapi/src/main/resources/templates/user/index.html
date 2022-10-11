@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{~/css/global.css}">
+    <title>Epic Task</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Epic Task</h1>
+
+        <div>
+            <!--span sec:authentication="name"></!--span-->
+            <span th:text="${#authentication.name}"></span>
+            <a href="/logout">
+                <span class="material-icons">logout</span>
+            </a>
+        </div>
+    </header>
+
+    <nav th:replace="_template :: menu('user')"></nav>
+
+    <div class="toolbar">
+        <a class="button" href="/task/new" sec:authorize-url="POST /task">cadastrar tarefa</a>
+    </div>
+
+    <div th:if="${message != null}" class="alert success">
+        <span th:text="${message}"></span>
+    </div>
+
+    <main>
+        <h2>Lista de Usuários</h2>
+    </main>
+
+</body>
+</html>

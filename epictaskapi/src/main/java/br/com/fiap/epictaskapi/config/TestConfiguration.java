@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import br.com.fiap.epictaskapi.model.Role;
 import br.com.fiap.epictaskapi.model.Task;
 import br.com.fiap.epictaskapi.model.User;
 import br.com.fiap.epictaskapi.repository.TaskRepository;
@@ -46,7 +47,16 @@ public class TestConfiguration implements CommandLineRunner {
             new User(
                 "João", 
                 "joao@fiap.com.br", 
-                passwordEncoder.encode("123"))
+                passwordEncoder.encode("123"),
+                new Role("ROLE_USER"))
+        );
+
+        userRepository.save(
+            new User(
+                "Maria", 
+                "maria@fiap.com.br", 
+                passwordEncoder.encode("123"),
+                new Role("ROLE_ADMIN"))
         );
     }
     

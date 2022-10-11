@@ -1,0 +1,7 @@
+<nav th:fragment="menu(page)">
+    <ul>
+        <li th:classappend="${page == 'task'}?active"><a href="/task">Pendente</a></li>
+        <li><a href="">Concluídas</a></li>
+        <li th:classappend="${page == 'user'}?active"><a href="/user">Usuários</a></li>
+    </ul>
+</nav>

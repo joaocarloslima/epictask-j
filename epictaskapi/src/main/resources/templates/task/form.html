@@ -15,6 +15,7 @@
         <div class="card lg">
             <h2>Cadastrar Tarefa</h2>
             <form action="/task" method="POST" class="vertical-form" th:object="${task}">
+                <input type="hidden" th:field="*{id}" id="id">
     
                 <label for="title" class="hide">Título</label>
                 <input 

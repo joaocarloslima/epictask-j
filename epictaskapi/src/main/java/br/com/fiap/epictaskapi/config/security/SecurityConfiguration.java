@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Profile("dev")
@@ -38,6 +37,12 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.DELETE, "/api/user/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/user/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
+
+                // WEB
+                .antMatchers(HttpMethod.GET, "/task").authenticated()
+                .antMatchers(HttpMethod.GET, "/task/delete/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/task").hasRole("ADMIN")
+               
                 
                 //h2
                 .antMatchers("/h2-console/**").permitAll()
@@ -47,6 +52,8 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .headers().frameOptions().disable()
             .and()
+                .formLogin()
+                //.loginPage("/meulogin")
                 //.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
             ;
         return http.build();

@@ -1,6 +1,7 @@
 package br.com.fiap.epictaskapi.controller.web;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,8 +39,11 @@ public class TaskWebController {
     @PostMapping
     public String create(@Valid Task task, BindingResult binding, RedirectAttributes redirect){
         if(binding.hasErrors()) return "task/form";
+
+        String mensagem = (task.getId() == null) ? "Tarefa cadastrada com sucesso" : "Tarefa alterada com sucesso";
+
         service.save(task);
-        redirect.addFlashAttribute("message", "Tarefa cadastrada com sucesso");
+        redirect.addFlashAttribute("message", mensagem);
         return "redirect:/task";
     }
 
@@ -48,6 +52,12 @@ public class TaskWebController {
         service.deleteById(id);
         redirect.addFlashAttribute("message", "Tarefa apagada com sucesso");
         return "redirect:/task";
+    }
+
+    @GetMapping("{id}")
+    public ModelAndView edit(@PathVariable Long id){
+        var task = service.get(id);
+        return new ModelAndView("task/form").addObject("task", task.get());
     }
     
 }

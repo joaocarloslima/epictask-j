@@ -26,6 +26,11 @@ body{
     font-size: 10px;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
 h1{
     font-size: 2.4rem;
     margin: 1rem;
@@ -35,8 +40,23 @@ h2{
     font-size: 1.2rem;
 }
 
+nav ul {
+    display: flex;
+}
+
+nav li {
+    list-style: none;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+nav li.active{
+    border-bottom: 1px solid var(--primary);
+}
+
 a{
     text-decoration: none;
+    color: var(--text-color )
 }
 
 .toolbar{
